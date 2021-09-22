@@ -1,0 +1,42 @@
+<template>
+    <lightning-card class="search" icon-name="standard:search" title="Github profile search">
+        <lightning-input style="width: 80%; margin-left: auto; margin-right: auto;"  type="text" placeholder="Search" onchange={handleSearchkeyChange}></lightning-input>
+        <br>
+        <lightning-button  label="Search" variant="brand" onclick={handleClick}></lightning-button>
+        <template if:false={isClicked}>
+        <div if:true={profiles}>
+        <ul>
+            <template for:each={profiles} for:item="profile">
+                <a  key={profile.id} data-value={profile.id} onclick={profileClick} class="search-results" >
+                    <p>{profile.login}</p>
+                    <img src={profile.avatar_url}/>
+                </a>
+            </template>
+        </ul>
+    </div>
+        </template>
+    <div if:false={profilelength}>
+        <h1 style="text-align: center; font-weight: bold;">Sorry no results found!!!</h1>
+    </div>
+
+    <template if:true={isClicked}>
+        <lightning-card title="Show Github Status">
+            <div class="slds-var-m-around_large">
+                <div>
+                    <img src={userProfiles.avatar_url}  height="200" width="200" />
+                    <div class="slds-var-p-vertical_xxx-small slds-text-heading_large">{userProfiles.name}</div>
+                    <br>
+                    <div class="slds-var-p-vertical_xxx-small slds-text-heading_small"><b>Github Profile:</b><a href={userProfiles.html_url} target="_blank">{userProfiles.html_url}</a></div>
+                    <div class="slds-var-p-vertical_xxx-small slds-text-heading_small"><b>About:</b>{userProfiles.bio}</div>
+                    <div class="slds-var-p-vertical_xxx-small slds-text-heading_small"><b>Location:</b>{userProfiles.location}</div>
+                    <div class="slds-var-p-vertical_xxx-small slds-text-heading_small"><b>Following:</b>{userProfiles.following}</div>
+                    <div class="slds-var-p-vertical_xxx-small slds-text-heading_small"><b>Created Date:</b>{userProfiles.created_at}</div>
+                    <div class="slds-var-p-vertical_xxx-small slds-text-heading_small"><b>Followers:</b>{userProfiles.followers}</div>
+                    <div class="slds-var-p-vertical_xxx-small slds-text-heading_small"><b>Repos:</b>{userProfiles.public_repos}</div>       
+                </div>
+            </div>  
+        </lightning-card>
+        </template>
+    
+</lightning-card>  
+</template>
